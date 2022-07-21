@@ -1,7 +1,7 @@
 "use strict";
 
 // This is the global list of the stories, an instance of StoryList
-let storyList;
+let storyList = new StoryList();
 
 /** Get and show stories when site first loads. */
 
@@ -50,3 +50,21 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+/** Get data from the Submit form,
+ * create {title, author, url} to call .addStory with current user
+ * put story on the page */
+async function getStoriesSubmitFormData() {
+  const title = $("#create-title").val();
+  const author = $("#create-author").val();
+  const url = $("#create-url").val();
+  const storyFormObj = {title, author, url};
+
+  const makeStoryInstanceFromForm =  await storyList.addStory(currentUser, storyFormObj);
+  putStoriesOnPage();
+
+}
+
+$submitForm.on("submit", async function(evt){
+  evt.preventDefault();
+  await getStoriesSubmitFormData();
+});
