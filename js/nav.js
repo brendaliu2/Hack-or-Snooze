@@ -6,6 +6,8 @@
 
 /** Show main list of all stories when click site name */
 
+
+
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   evt.preventDefault();
@@ -36,3 +38,10 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+function showSubmitForm(){
+  $submitForm.show();
+}
+
+
+$navSubmitStory.on("click", showSubmitForm);
