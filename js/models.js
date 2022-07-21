@@ -26,7 +26,8 @@ class Story {
   getHostName() {
     // UNIMPLEMENTED: complete this function!
     //url class make instance and pass in url -> get host name
-    return "hostname.com";
+    const hostName = new URL(this.url);
+    return `${hostName.origin}`;
   }
 }
 
@@ -87,19 +88,12 @@ class StoryList {
         }
       }
     });
+
     const newStoryData = newStory.data.story;
-    const newStoryDataObj = {
-      storyId: newStoryData.storyId,
-      title: newStoryData.title,
-      author: newStoryData.author,
-      url: newStoryData.url,
-      username: newStoryData.username,
-      createdAt: newStoryData.createdAt
-    };
-    const newStoryInstance = new Story(newStoryDataObj);
-    //new Story.data.story no need to repeat the constructor
+    const newStoryInstance = new Story(newStoryData);
+
     this.stories.unshift(newStoryInstance);
-    //add to user's ownStories
+    currentUser.ownStories.unshift(newStoryInstance);
     return newStoryInstance;
   }
 }
