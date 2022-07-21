@@ -24,10 +24,10 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    //url class make instance and pass in url -> get host name
-    const hostName = new URL(this.url);
-    return `${hostName.origin}`;
+
+
+    return new URL(this.url).hostname;
+
   }
 }
 
@@ -213,4 +213,26 @@ class User {
       return null;
     }
   }
+//make async functions for function
+  //api call to get story id to server
+  addFavorite (story) {
+    this.favorites.unshift(story);
+    // console.log(this.favorites);
+    return this.favorites;
+  }
+
+  //filter method instead of splice
+  unFavorite (story) {
+    const favorites = this.favorites;
+    const storyString = JSON.stringify(story);
+    for (let i = 0; i < favorites.length ; i++){
+      let favoriteString = JSON.stringify(favorites[i]);
+      if(storyString === favoriteString) {
+        favorites = favorites.splice(i,1);
+      }
+    }
+    console.log(this.favorites);
+    return favorites;
+  }
+
 }
