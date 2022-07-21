@@ -54,21 +54,24 @@ function putStoriesOnPage() {
 /** Get data from the Submit form,
  * create {title, author, url} to call .addStory with current user
  * put story on the page */
-async function getStoriesSubmitFormData() {
+async function submitStory() {
 
   const title = $("#create-title").val();
   const author = $("#create-author").val();
   const url = $("#create-url").val();
   const storyFormObj = {title, author, url};
 
-  const makeStoryInstanceFromForm =  await storyList.addStory(currentUser, storyFormObj);
-
-  putStoriesOnPage();
+  const makeStoryInstanceFromForm =  await storyList.addStory(
+    currentUser, storyFormObj
+  );
   console.debug("story submitted");
+
+  const $submittedStory = generateStoryMarkup(makeStoryInstanceFromForm);
+  $allStoriesList.prepend($submittedStory);
 
 }
 
 $submitForm.on("submit", async function(evt){
-
-  await getStoriesSubmitFormData();
+  await submitStory();
+  hideSubmitForm();
 });

@@ -43,5 +43,9 @@ function showSubmitForm(){
   $submitForm.show();
 }
 
-
 $navSubmitStory.on("click", showSubmitForm);
+
+function hideSubmitForm(){
+  $submitForm.hide();
+}
+//toggle for the last two functions

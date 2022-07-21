@@ -25,6 +25,7 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
+    //url class make instance and pass in url -> get host name
     return "hostname.com";
   }
 }
@@ -96,7 +97,9 @@ class StoryList {
       createdAt: newStoryData.createdAt
     };
     const newStoryInstance = new Story(newStoryDataObj);
-    StoryList.getStories();
+    //new Story.data.story no need to repeat the constructor
+    this.stories.unshift(newStoryInstance);
+    //add to user's ownStories
     return newStoryInstance;
   }
 }
