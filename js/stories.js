@@ -80,12 +80,11 @@ $submitForm.on("submit", async function(evt){
   hideSubmitForm();
 });
 
-$("#all-stories-list").on("click",$(".star"), async function(evt){
-  console.log("CLICKING THE STAR");
-  console.log(evt.target.parentElement.parentElement.getAttribute("id"));
-  let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
-  let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
-  console.log(targetedStory[0]);
-  const addFavoriteStory = await currentUser.addFavorite(targetedStory[0]);
-})
+async function favoriteStoryWithStar(evt){
+    let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
+    let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
+    const addFavoriteStory = await currentUser.addFavorite(targetedStory[0]);
+};
+
+$allStoriesList.on("click",$(".star"), favoriteStoryWithStar)
 
