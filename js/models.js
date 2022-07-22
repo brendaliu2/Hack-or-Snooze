@@ -218,10 +218,8 @@ class User {
   async addFavorite (story) {
     //get user object from API --> change favorites array
     // --> POST request to API for the new favorite list
-    const currentFavorites = await axios({
-      url: `${BASE_URL}/users/${this.username}`,
-      method: "GET"
-    });
+    const currentFavorites = await axios.post(`https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
+      {token: `${this.loginToken}`});
     console.log(currentFavorites);
     // this.favorites
 
