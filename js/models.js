@@ -218,11 +218,13 @@ class User {
   async addFavorite (story) {
     //get user object from API --> change favorites array
     // --> POST request to API for the new favorite list
-    const currentFavorites = await axios.post(`https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
-      {token: `${this.loginToken}`});
+
+    const currentFavorites = await axios.post(
+      `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
+      {token: `${this.loginToken}`}
+    );
     console.log(currentFavorites);
     // this.favorites
-
 
     this.favorites.unshift(story);
     // console.log(this.favorites);
@@ -230,17 +232,16 @@ class User {
   }
 
   //filter method instead of splice
-  unFavorite (story) {
-    const favorites = this.favorites;
-    const storyString = JSON.stringify(story);
-    for (let i = 0; i < favorites.length ; i++){
-      let favoriteString = JSON.stringify(favorites[i]);
-      if(storyString === favoriteString) {
-        favorites = favorites.splice(i,1);
-      }
-    }
-    console.log(this.favorites);
-    return favorites;
+  async unFavorite (story) {
+    const deleteFavorites = await axios.delete(
+      `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
+      {data:{
+        token: `${this.loginToken}`
+      }}
+    );
+    console.log(deleteFavorites);
+    this.favorites.shift(story);
+    return this.favorites;
   }
 
 }
