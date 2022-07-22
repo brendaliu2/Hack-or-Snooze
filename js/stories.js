@@ -25,6 +25,10 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+      <span class="star">
+        <i class="bi bi-star" >
+        </i>
+      </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -75,3 +79,13 @@ $submitForm.on("submit", async function(evt){
   await submitStory();
   hideSubmitForm();
 });
+
+$("#all-stories-list").on("click",$(".star"), async function(evt){
+  console.log("CLICKING THE STAR");
+  console.log(evt.target.parentElement.parentElement.getAttribute("id"));
+  let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
+  let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
+  console.log(targetedStory[0]);
+  const addFavoriteStory = await currentUser.addFavorite(targetedStory[0]);
+})
+

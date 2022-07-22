@@ -213,34 +213,32 @@ class User {
       return null;
     }
   }
-//make async functions for function
-  //api call to get story id to server
+
+
+  /** send a POST request to API to add story to User's favorites  */
   async addFavorite (story) {
-    //get user object from API --> change favorites array
-    // --> POST request to API for the new favorite list
 
     const currentFavorites = await axios.post(
       `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
       {token: `${this.loginToken}`}
     );
-    console.log(currentFavorites);
-    // this.favorites
 
-    this.favorites.unshift(story);
-    // console.log(this.favorites);
+    console.log(currentFavorites);
+
     return this.favorites;
   }
 
-  //filter method instead of splice
+  /** send a DELETE request to API to remove story from User's favorites  */
   async unFavorite (story) {
+
     const deleteFavorites = await axios.delete(
       `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
       {data:{
         token: `${this.loginToken}`
       }}
     );
+
     console.log(deleteFavorites);
-    this.favorites.shift(story);
     return this.favorites;
   }
 
