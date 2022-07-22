@@ -69,10 +69,14 @@ function putStoriesOnPage() {
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     let $story;
-    if (currentUser.favorites.includes(story)){
-      $story = generateFavoriteStoryMarkup(story);
-    } else {
-      $story = generateStoryMarkup(story);
+    for (let j = 0; j < currentUser.favorites.length; j++){
+      if(currentUser.favorites[j].storyId === story.storyId){
+        $story = generateFavoriteStoryMarkup(story);
+        console.log('fav');
+      } else {
+        $story = generateStoryMarkup(story)
+        console.log('reg');;
+      }
     }
     $allStoriesList.append($story);
   }
