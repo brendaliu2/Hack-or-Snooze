@@ -57,4 +57,6 @@ function showFavoritesList (){
 $navFavorites.on('click', function (e) {
   hidePageComponents();
   showFavoritesList();
+  $favoriteStoriesList.empty();
+  currentUser.postFavoriteStories(currentUser.favorites);
 })

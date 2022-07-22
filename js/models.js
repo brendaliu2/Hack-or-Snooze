@@ -215,6 +215,13 @@ class User {
     }
   }
 
+  /** takes in user favorites array and appends to page */
+  postFavoriteStories (favorites) {
+    for (let story of favorites) {
+      const $story = generateFavoriteStoryMarkup(story);
+      $favoriteStoriesList.append($story);
+    }
+  }
 
   /** send a POST request to API to add story to User's favorites  */
   async addFavorite (story) {
@@ -223,17 +230,14 @@ class User {
       `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
       {token: `${this.loginToken}`}
     );
-    const newFavoriteStory = generateStoryMarkup(story);
-    $favoriteStoriesList.append(newFavoriteStory);
+
+    this.favorites.push(story);
 
     return this.favorites;
 
   }
-  // function
-  // for (let story of storyList.stories) {
-  //   const $story = generateStoryMarkup(story);
-  //   $allStoriesList.append($story);
-  // }
+
+
   /** send a DELETE request to API to remove story from User's favorites  */
   async unFavorite (story) {
 
@@ -244,13 +248,16 @@ class User {
       }}
     );
 
-      // const favoriteToRemove = this.favorites.filter(favorite => favorite.storyId === story.storyId);
-      // .getElementById(story.storyId).remove();
+    for(let i = 0; i < this.favorites.length; i++){
+      if(JSON.stringify(this.favorites[i]) === JSON.stringify(story)){
+        this.favorites.splice(i,1);
+      }
+
+    }
 
     console.log(deleteFavorites);
     return this.favorites;
   }
 
 }
-
 
