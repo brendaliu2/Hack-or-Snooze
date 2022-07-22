@@ -63,9 +63,9 @@ async function submitStory() {
   const title = $("#create-title").val();
   const author = $("#create-author").val();
   const url = $("#create-url").val();
-  const storyFormObj = {title, author, url};
+  const storyFormObj = { title, author, url };
 
-  const makeStoryInstanceFromForm =  await storyList.addStory(
+  const makeStoryInstanceFromForm = await storyList.addStory(
     currentUser, storyFormObj
   );
   console.debug("story submitted");
@@ -75,16 +75,35 @@ async function submitStory() {
 
 }
 
-$submitForm.on("submit", async function(evt){
+$submitForm.on("submit", async function (evt) {
   await submitStory();
   hideSubmitForm();
 });
 
-async function favoriteStoryWithStar(evt){
-    let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
-    let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
-    const addFavoriteStory = await currentUser.addFavorite(targetedStory[0]);
+async function favoriteStoryWithStar(evt) {
+  let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
+  let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
+  await currentUser.addFavorite(targetedStory[0]);
 };
 
-$allStoriesList.on("click",$(".star"), favoriteStoryWithStar)
+async function unFavoriteWithStar(evt) {
+  let idOfTargetStory = evt.target.parentElement.parentElement.getAttribute("id");
+  let targetedStory = storyList.stories.filter(story => (story.storyId === idOfTargetStory));
+  await currentUser.unFavorite(targetedStory[0]);
+}
+
+$(".stories-list").on("click", ".star", toggleFavoriteStar);
+
+async function toggleFavoriteStar(evt) {
+  let classOfTargetStar = evt.target.getAttribute("class");
+  console.log(classOfTargetStar);
+  if (classOfTargetStar === "bi bi-star") {
+    evt.target.setAttribute("class", "bi bi-star-fill");
+    await favoriteStoryWithStar(evt);
+  }
+  else {
+    evt.target.setAttribute("class", "bi bi-star");
+    await unFavoriteWithStar(evt);
+  }
+}
 

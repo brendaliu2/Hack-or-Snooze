@@ -19,6 +19,7 @@ class Story {
     this.url = url;
     this.username = username;
     this.createdAt = createdAt;
+
   }
 
   /** Parses hostname out of URL and returns it. */
@@ -222,13 +223,17 @@ class User {
       `https://hack-or-snooze-v3.herokuapp.com/users/${this.name}/favorites/${story.storyId}`,
       {token: `${this.loginToken}`}
     );
-
     const newFavoriteStory = generateStoryMarkup(story);
     $favoriteStoriesList.append(newFavoriteStory);
 
     return this.favorites;
-  }
 
+  }
+  // function
+  // for (let story of storyList.stories) {
+  //   const $story = generateStoryMarkup(story);
+  //   $allStoriesList.append($story);
+  // }
   /** send a DELETE request to API to remove story from User's favorites  */
   async unFavorite (story) {
 
@@ -239,8 +244,13 @@ class User {
       }}
     );
 
+      // const favoriteToRemove = this.favorites.filter(favorite => favorite.storyId === story.storyId);
+      // .getElementById(story.storyId).remove();
+
     console.log(deleteFavorites);
     return this.favorites;
   }
 
 }
+
+
