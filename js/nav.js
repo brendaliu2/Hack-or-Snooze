@@ -49,3 +49,12 @@ function hideSubmitForm(){
   $submitForm.hide();
 }
 //toggle for the last two functions
+
+function showFavoritesList (){
+  $favoriteStoriesList.show();
+}
+
+$navFavorites.on('click', function (e) {
+  hidePageComponents();
+  showFavoritesList();
+})

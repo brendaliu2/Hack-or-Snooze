@@ -223,7 +223,8 @@ class User {
       {token: `${this.loginToken}`}
     );
 
-    console.log(currentFavorites);
+    const newFavoriteStory = generateStoryMarkup(story);
+    $favoriteStoriesList.append(newFavoriteStory);
 
     return this.favorites;
   }
