@@ -215,7 +215,17 @@ class User {
   }
 //make async functions for function
   //api call to get story id to server
-  addFavorite (story) {
+  async addFavorite (story) {
+    //get user object from API --> change favorites array
+    // --> POST request to API for the new favorite list
+    const currentFavorites = await axios({
+      url: `${BASE_URL}/users/${this.username}`,
+      method: "GET"
+    });
+    console.log(currentFavorites);
+    // this.favorites
+
+
     this.favorites.unshift(story);
     // console.log(this.favorites);
     return this.favorites;
